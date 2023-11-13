@@ -4,7 +4,6 @@ import CartsRouter from "./carts.router.js";
 import SessionRouter from "./sessions.router.js";
 import UsersRouter from "./users.router.js";
 import ViewsRouter from "./views/views.router.js";
-import MockingRouter from "./mocking.router.js";
 import LoggerRouter from "./loggerTest.js";
 import { addLogger } from "../utils/logger.js";
 import { isAuth, userRole } from "../middleware/authentication.js";
@@ -25,7 +24,6 @@ router.use("/api/carts", isAuth, userRole, CartsRouter.getRouter());
 router.use("/api/sessions", SessionRouter.getRouter());
 router.use("/api/users", isAuth, userRole, UsersRouter.getRouter());
 router.use("/", ViewsRouter.getRouter());
-router.use("/mockingproducts", MockingRouter.getRouter());
 router.use("/loggertest", LoggerRouter);
 router.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
