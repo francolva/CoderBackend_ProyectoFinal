@@ -1,0 +1,20 @@
+.empty-image {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 200px;
+	background-color: #f5f5f5;
+	color: #777;
+}
+
+#productList {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	padding: 10px;
+}
+
+#productList button {
+	text-align: center;
+	width: 90px;
+}

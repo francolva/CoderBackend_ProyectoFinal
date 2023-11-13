@@ -1,0 +1,162 @@
+tags:
+    - name: Carts
+      description: Operations involving user's carts.
+paths:
+    /api/carts:
+        post:
+            summary: Create a new cart.
+            tags:
+                - Carts
+            responses:
+                "200":
+                    description: Cart created successfully.
+                "500":
+                    description: Unexpected error, cannot create cart.
+    "/api/carts/{cid}":
+        get:
+            summary: Get a cart by ID.
+            tags:
+                - Carts
+            parameters:
+                - in: path
+                  name: cid
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: The cart.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Cart"
+                "404":
+                    description: Cart not found.
+                "500":
+                    description: Unknown error.
+        put:
+            summary: Update a cart by ID.
+            tags:
+                - Carts
+            parameters:
+                - in: path
+                  name: cid
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                description: Updated cart details
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Cart"
+            responses:
+                "200":
+                    description: Cart updated successfully.
+                "400":
+                    description: Invalid request, cannot update products.
+                "500":
+                    description: Unknown error, cart was not updated.
+        delete:
+            summary: Empty a cart by ID.
+            tags:
+                - Carts
+            parameters:
+                - in: path
+                  name: cid
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Cart emptied successfully.
+                "400":
+                    description: Cannot empty cart.
+    "/api/carts/{cid}/product/{pid}":
+        post:
+            summary: Add a product to a cart.
+            tags:
+                - Carts
+            parameters:
+                - in: path
+                  name: cid
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: pid
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Product added to the cart successfully.
+                "400":
+                    description: Cannot add product to the cart.
+                "403":
+                    description: Forbidden, cannot add own product.
+        put:
+            summary: Update product quantity in a cart.
+            tags:
+                - Carts
+            parameters:
+                - in: path
+                  name: cid
+                  required: true
+                  schema:
+                      type: string
+                - in: path
+                  name: pid
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                description: Updated quantity details
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                quantity:
+                                    type: integer
+                                    format: int32
+            responses:
+                "200":
+                    description: Product quantity updated successfully in the cart.
+                "400":
+                    description: Cannot update product quantity in the cart.
+    "/api/carts/{cid}/purchase":
+        post:
+            summary: Purchase the items in the cart.
+            tags:
+                - Carts
+            parameters:
+                - in: path
+                  name: cid
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Cart items purchased successfully.
+                "404":
+                    description: Cart not found.
+                "500":
+                    description: Unknown error.
+components:
+    schemas:
+        Cart:
+            type: object
+            properties:
+                products:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            product:
+                                type: string
+                            quantity:
+                                type: integer
+                                format: int32

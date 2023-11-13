@@ -1,0 +1,126 @@
+tags:
+    - name: Products
+      description: Operations regarding products creation, purchase and modification.
+paths:
+    /api/products:
+        get:
+            summary: Get a list of all products.
+            tags:
+                - Products
+            responses:
+                "200":
+                    description: A list of products.
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/Product"
+        post:
+            summary: Create a new product.
+            tags:
+                - Products
+            requestBody:
+                description: New product details
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Product"
+            responses:
+                "200":
+                    description: Product created successfully.
+                "400":
+                    description: Invalid or missing input.
+    "/api/products/{pid}":
+        get:
+            summary: Get a product by ID.
+            tags:
+                - Products
+            parameters:
+                - in: path
+                  name: pid
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: The product.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                "404":
+                    description: Product not found.
+        put:
+            summary: Update a product by ID.
+            tags:
+                - Products
+            parameters:
+                - in: path
+                  name: pid
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                description: Updated product details
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Product"
+            responses:
+                "200":
+                    description: Product updated successfully.
+                "400":
+                    description: Cannot update product.
+        delete:
+            summary: Delete a product by ID.
+            tags:
+                - Products
+            parameters:
+                - in: path
+                  name: pid
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Product deleted successfully.
+                "400":
+                    description: Cannot delete product.
+                "403":
+                    description: Forbidden, cannot delete foreign product.
+                "404":
+                    description: Cannot delete inexistent product.
+components:
+    schemas:
+        Product:
+            type: object
+            properties:
+                title:
+                    type: string
+                description:
+                    type: string
+                code:
+                    type: string
+                price:
+                    type: number
+                status:
+                    type: boolean
+                stock:
+                    type: number
+                category:
+                    type: string
+                thumbnail:
+                    type: string
+                owner:
+                    type: string
+            required:
+                - title
+                - description
+                - code
+                - price
+                - status
+                - stock
+                - category

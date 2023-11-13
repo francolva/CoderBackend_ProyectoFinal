@@ -1,0 +1,55 @@
+* {
+	font-family: "Montserrat", sans-serif;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	padding-top: 3%;
+	color: aliceblue;
+	background-color: #202020;
+}
+
+html {
+	min-height: 100vh;
+}
+
+label {
+    color: #202020;
+}
+
+tr {
+    vertical-align: middle;
+    text-align: center;
+}
+
+header {
+	z-index: 10000;
+	position: fixed;
+	top: 0px;
+	width: 100vw;
+}
+
+nav .container {
+    margin-right: 0;
+}
+
+
+a {
+	font-size: 14px;
+	font-weight: 700;
+}
+@media screen and (max-width: 540px) {
+	.centerOnMobile {
+		text-align: center;
+	}
+}
+
+#line-below {
+	width: 100vw;
+	height: 5px;
+	padding: 0;
+	margin: 0;
+	background-color: darkseagreen;
+}
