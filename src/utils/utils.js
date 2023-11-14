@@ -14,6 +14,5 @@ export function generateToken() {
 		`${CONFIG.SESSION_SECRET}${Date.now()}`,
 		"base64"
 	).toString("hex");
-	console.log(token);
 	return token;
 }
